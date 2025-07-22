@@ -2,30 +2,44 @@ import App from '@/components/pages/app'
 import { APP_URL } from '@/lib/constants'
 import type { Metadata } from 'next'
 
-const frame = {
-  version: 'next',
+const miniappEmbed = {
+  version: '1',
   imageUrl: `${APP_URL}/images/feed.png`,
   button: {
-    title: 'Launch Template',
+    title: 'クッキーを焼く',
     action: {
       type: 'launch_frame',
-      name: 'Monad Farcaster MiniApp Template',
+      name: 'Monad クッキークリッカー',
       url: APP_URL,
       splashImageUrl: `${APP_URL}/images/splash.png`,
-      splashBackgroundColor: '#f7f7f7',
+      splashBackgroundColor: '#2d1606',
     },
   },
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Monad Farcaster MiniApp Template',
+    title: 'Monad クッキークリッカー',
     openGraph: {
-      title: 'Monad Farcaster MiniApp Template',
-      description: 'A template for building mini-apps on Farcaster and Monad',
+      title: 'Monad クッキークリッカー',
+      description: 'Monad Testnet上で楽しむ、世界一シンプルなクッキークリッカーゲームです。',
+      images: [
+        {
+          url: `${APP_URL}/images/feed.png`,
+        },
+      ],
+    },
+    twitter: {
+      images: [
+        {
+          url: `${APP_URL}/images/feed.png`,
+        },
+      ],
     },
     other: {
-      'fc:frame': JSON.stringify(frame),
+      'fc:miniapp': JSON.stringify(miniappEmbed),
+      // fc:frame for backward compatibility
+      'fc:frame': JSON.stringify(miniappEmbed),
     },
   }
 }

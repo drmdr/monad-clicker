@@ -31,3 +31,44 @@ body {
     text-wrap: balance;
   }
 }
+
+/* クッキークリッカーのアニメーション */
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+.animate-float-up {
+  animation: float-up 1s ease-out forwards;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-cookie {
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* クッキー背景のスタイル */
+.cookie-bg {
+  background-color: #2d1606;
+  background-image: radial-gradient(#3a1f0b 15%, transparent 15%),
+    radial-gradient(#3a1f0b 15%, transparent 15%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
