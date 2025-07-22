@@ -56,3 +56,30 @@
 {"level":"info","event":0,"connection":"855f4192-0860-4139-b7a0-d1be1832ccf0","connIndex":0,"location":"nrt08","ip":"198.41.200.53","protocol":"quic","time":"2025-07-22T06:51:43Z","message":"Registered tunnel connection"}
 {"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T06:51:48Z","message":"Failed to initialize DNS local resolver"}
 {"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T06:56:53Z","message":"Failed to refresh DNS local resolver"}
+{"level":"info","time":"2025-07-22T07:58:29Z","message":"Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps"}
+{"level":"info","time":"2025-07-22T07:58:29Z","message":"Requesting new quick Tunnel on trycloudflare.com..."}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"|  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"|  https://describing-transmission-not-gender.trycloudflare.com                              |"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"+--------------------------------------------------------------------------------------------+"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Version 2025.7.0 (Checksum 9e37ce90110dc9e83108317273369641d2cab438cd9ca0458b30a6568fb09eac)"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"GOOS: windows, GOVersion: go1.24.2, GoArch: amd64"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Settings: map[ha-connections:1 logfile:cloudflared.log protocol:quic url:http://localhost:3000]"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"cloudflared will not automatically update on Windows systems."}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Generated Connector ID: ff1ad845-53cd-4aba-a79a-b49637ea4916"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Initial protocol quic"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"ICMP proxy will use 10.100.0.2 as source for IPv4"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"ICMP proxy will use fe80::723e:7ca:789d:a5aa in zone NordLynx as source for IPv6"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"ICMP proxy will use 10.100.0.2 as source for IPv4"}
+{"level":"info","event":0,"ip":"198.41.192.77","connIndex":0,"time":"2025-07-22T07:58:32Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"ICMP proxy will use fe80::723e:7ca:789d:a5aa in zone NordLynx as source for IPv6"}
+{"level":"info","time":"2025-07-22T07:58:32Z","message":"Starting metrics server on 127.0.0.1:20241/metrics"}
+{"level":"info","event":0,"connection":"198713c7-0884-4d83-8af0-f04a2ffd41b9","connIndex":0,"location":"nrt09","ip":"198.41.192.77","protocol":"quic","time":"2025-07-22T07:58:33Z","message":"Registered tunnel connection"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T07:58:37Z","message":"Failed to initialize DNS local resolver"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://localhost:3000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2025-07-22T08:02:28Z"}
+{"level":"error","event":0,"ip":"198.41.192.77","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://describing-transmission-not-gender.trycloudflare.com/","time":"2025-07-22T08:02:28Z","message":"Request failed"}
+{"level":"error","event":1,"connIndex":0,"originService":"http://localhost:3000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2025-07-22T08:02:29Z"}
+{"level":"error","event":0,"ip":"198.41.192.77","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://describing-transmission-not-gender.trycloudflare.com/","time":"2025-07-22T08:02:29Z","message":"Request failed"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T08:03:42Z","message":"Failed to refresh DNS local resolver"}

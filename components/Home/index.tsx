@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { useI18n } from '@/internationalization/client';
+import { useState, useEffect } from 'react';
 import { FarcasterActions } from '@/components/Home/FarcasterActions'
 import { User } from '@/components/Home/User'
 import { WalletActions } from '@/components/Home/WalletActions'
@@ -21,7 +20,6 @@ interface Upgrade {
 }
 
 export function Demo() {
-  const t = useI18n();
   const [cookies, setCookies] = useState<number>(0)
   const [cookiesPerClick, setCookiesPerClick] = useState<number>(1)
   const [cookiesPerSecond, setCookiesPerSecond] = useState<number>(0)
@@ -30,36 +28,38 @@ export function Demo() {
   })
   const [savedScoreLoaded, setSavedScoreLoaded] = useState<boolean>(false)
   
-    const initialUpgrades = useMemo(() => [
+  const [upgrades, setUpgrades] = useState<Upgrade[]>([
     {
       id: 'cursor',
-      name: t('upgrade.cursor.name'),
-      description: t('upgrade.cursor.description'),
+      name: 'カーソル',
+      description: '自動でクッキーをクリックします',
       baseCost: 15,
+      currentCost: 15,
+      count: 0,
       cookiesPerSecond: 0.1,
       multiplier: 1.15,
     },
     {
       id: 'grandma',
-      name: t('upgrade.grandma.name'),
-      description: t('upgrade.grandma.description'),
+      name: 'おばあちゃん',
+      description: 'クッキーを焼いてくれます',
       baseCost: 100,
+      currentCost: 100,
+      count: 0,
       cookiesPerSecond: 1,
       multiplier: 1.15,
     },
     {
       id: 'farm',
-      name: t('upgrade.farm.name'),
-      description: t('upgrade.farm.description'),
+      name: 'クッキー農場',
+      description: '大量のクッキーを生産します',
       baseCost: 1100,
+      currentCost: 1100,
+      count: 0,
       cookiesPerSecond: 8,
       multiplier: 1.15,
     },
-  ], [t]);
-
-  const [upgrades, setUpgrades] = useState<Upgrade[]>(
-    initialUpgrades.map(u => ({ ...u, currentCost: u.baseCost, count: 0 }))
-  );
+  ])
   
   // クッキー自動生成の効果
   useEffect(() => {
@@ -131,12 +131,12 @@ export function Demo() {
   
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 space-y-8">
-      <h1 className="text-3xl font-bold text-center">{t('app.title')}</h1>
+      <h1 className="text-3xl font-bold text-center">Monad クッキークリッカー</h1>
       
       <div className="w-full max-w-4xl space-y-6">
         <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="text-2xl font-bold">{t('text.cookies_count', { count: Math.floor(cookies) })}</div>
-          <div className="text-sm text-gray-400">{t('text.cookies_per_second_display', { value: cookiesPerSecond.toFixed(1) })}</div>
+          <div className="text-2xl font-bold">クッキー: {Math.floor(cookies)}枚</div>
+          <div className="text-sm text-gray-400">毎秒 {cookiesPerSecond.toFixed(1)} 枚</div>
           
           <div className="relative cursor-pointer" onClick={handleCookieClick}>
             <div className="w-40 h-40 bg-yellow-800 rounded-full flex items-center justify-center hover:scale-105 transition-transform">
@@ -160,21 +160,21 @@ export function Demo() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="border border-[#333] rounded-md p-4">
-            <h2 className="text-xl font-bold mb-4">{t('text.upgrades')}</h2>
+            <h2 className="text-xl font-bold mb-4">アップグレード</h2>
             <div className="space-y-2">
               {upgrades.map(upgrade => (
                 <div key={upgrade.id} className="flex justify-between items-center">
                   <div>
                     <div className="font-bold">{upgrade.name} ({upgrade.count})</div>
                     <div className="text-sm text-gray-400">{upgrade.description}</div>
-                    <div className="text-xs">{t('upgrade.per_second', { value: upgrade.cookiesPerSecond })}</div>
+                    <div className="text-xs">毎秒 {upgrade.cookiesPerSecond} 枚</div>
                   </div>
                   <button
                     className={`px-3 py-1 rounded-md ${cookies >= upgrade.currentCost ? 'bg-yellow-600 hover:bg-yellow-500' : 'bg-gray-600 cursor-not-allowed'}`}
                     onClick={() => buyUpgrade(upgrade.id)}
                     disabled={cookies < upgrade.currentCost}
                   >
-                    {t('upgrade.buy_button', { cost: Math.floor(upgrade.currentCost) })}
+                    {Math.floor(upgrade.currentCost)}枚で購入
                   </button>
                 </div>
               ))}
@@ -182,15 +182,15 @@ export function Demo() {
               <div className="mt-4">
                 <div className="flex justify-between items-center">
                   <div>
-                    <div className="font-bold">{t('upgrade.click_power.name')} ({cookiesPerClick})</div>
-                    <div className="text-sm text-gray-400">{t('upgrade.click_power.description')}</div>
+                    <div className="font-bold">クリックパワー ({cookiesPerClick})</div>
+                    <div className="text-sm text-gray-400">1クリックあたりのクッキー数を増やします</div>
                   </div>
                   <button
                     className={`px-3 py-1 rounded-md ${cookies >= cookiesPerClick * 100 ? 'bg-yellow-600 hover:bg-yellow-500' : 'bg-gray-600 cursor-not-allowed'}`}
                     onClick={buyClickUpgrade}
                     disabled={cookies < cookiesPerClick * 100}
                   >
-                    {t('upgrade.buy_button', { cost: cookiesPerClick * 100 })}
+                    {cookiesPerClick * 100}枚で購入
                   </button>
                 </div>
               </div>
