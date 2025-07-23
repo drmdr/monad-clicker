@@ -1,232 +1,154 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { FarcasterActions } from '@/components/Home/FarcasterActions'
-import { User } from '@/components/Home/User'
-import { WalletActions } from '@/components/Home/WalletActions'
-import { NotificationActions } from './NotificationActions'
-import { LanguageSwitcher, type Language } from '@/components/LanguageSwitcher'
-import { getTranslation } from '@/lib/translations'
-import Image from 'next/image'
-
-
-interface Upgrade {
-  id: string
-  name: string
-  description: string
-  baseCost: number
-  currentCost: number
-  count: number
-  cookiesPerSecond: number
-  multiplier: number
-}
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { getTranslation, TranslationKey } from "@/lib/translations";
+import { LanguageSwitcher, type Language } from "@/components/LanguageSwitcher";
 
 export function Demo() {
-  const [cookies, setCookies] = useState<number>(0)
-  const [cookiesPerClick, setCookiesPerClick] = useState<number>(1)
-  const [cookiesPerSecond, setCookiesPerSecond] = useState<number>(0)
-  const [clickEffect, setClickEffect] = useState<{x: number, y: number, show: boolean, value: number}>({
-    x: 0, y: 0, show: false, value: 0
-  })
-  const [savedScoreLoaded, setSavedScoreLoaded] = useState<boolean>(false)
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('en')
-  
-  const t = getTranslation(currentLanguage)
-  
-  const [upgrades, setUpgrades] = useState<Upgrade[]>([
-    {
-      id: 'cursor',
-      name: t.upgrades_data.cursor.name,
-      description: t.upgrades_data.cursor.description,
-      baseCost: 15,
-      currentCost: 15,
-      count: 0,
-      cookiesPerSecond: 0.1,
-      multiplier: 1.15,
-    },
-    {
-      id: 'grandma',
-      name: t.upgrades_data.grandma.name,
-      description: t.upgrades_data.grandma.description,
-      baseCost: 100,
-      currentCost: 100,
-      count: 0,
-      cookiesPerSecond: 1,
-      multiplier: 1.15,
-    },
-    {
-      id: 'farm',
-      name: t.upgrades_data.farm.name,
-      description: t.upgrades_data.farm.description,
-      baseCost: 1100,
-      currentCost: 1100,
-      count: 0,
-      cookiesPerSecond: 8,
-      multiplier: 1.15,
-    },
-  ])
-  
-  // 言語変更時にアップグレードデータを更新
-  useEffect(() => {
-    setUpgrades(prev => prev.map(upgrade => ({
-      ...upgrade,
-      name: t.upgrades_data[upgrade.id as keyof typeof t.upgrades_data].name,
-      description: t.upgrades_data[upgrade.id as keyof typeof t.upgrades_data].description,
-    })))
-  }, [currentLanguage, t])
-  
-  // クッキー自動生成の効果
+  const [cookies, setCookies] = useState(0);
+  const [cookiesPerSecond, setCookiesPerSecond] = useState(0);
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("en"); // 初期言語を英語に修正
+
+  const [upgrades, setUpgrades] = useState({
+    cursor: { id: 'Auto Clicker' as TranslationKey, count: 0, cost: 15, cps: 0.1 },
+    grandma: { id: 'Super Clicker' as TranslationKey, count: 0, cost: 100, cps: 1 },
+    farm: { id: 'Mega Clicker' as TranslationKey, count: 0, cost: 1100, cps: 8 },
+  });
+
+  const t = (key: TranslationKey) => getTranslation(currentLanguage, key);
+
+  // クッキーの自動生成
   useEffect(() => {
     const interval = setInterval(() => {
-      if (cookiesPerSecond > 0) {
-        setCookies(prev => prev + cookiesPerSecond / 10)
-      }
-    }, 100)
-    
-    return () => clearInterval(interval)
-  }, [cookiesPerSecond])
-  
-  // クッキーをクリック
-  const handleCookieClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    setCookies(prev => prev + cookiesPerClick)
-    
-    // クリック効果を表示
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    
-    setClickEffect({
-      x,
-      y,
-      show: true,
-      value: cookiesPerClick
-    })
-    
-    setTimeout(() => {
-      setClickEffect(prev => ({ ...prev, show: false }))
-    }, 1000)
-  }
-  
-  // アップグレードを購入
-  const buyUpgrade = (id: string) => {
-    const upgrade = upgrades.find(u => u.id === id)
-    if (!upgrade || cookies < upgrade.currentCost) return
-    
-    setCookies(prev => prev - upgrade.currentCost)
-    
-    setUpgrades(prev => prev.map(u => {
-      if (u.id === id) {
-        const newCount = u.count + 1
-        const newCost = Math.floor(u.baseCost * Math.pow(u.multiplier, newCount))
-        return { ...u, count: newCount, currentCost: newCost }
-      }
-      return u
-    }))
-    
-    // クッキー/秒の更新
-    const newCookiesPerSecond = upgrades.reduce((total, u) => {
-      if (u.id === id) {
-        return total + (u.count + 1) * u.cookiesPerSecond
-      }
-      return total + u.count * u.cookiesPerSecond
-    }, 0)
-    
-    setCookiesPerSecond(newCookiesPerSecond)
-  }
-  
-  // クリックアップグレードを購入
-  const buyClickUpgrade = () => {
-    const cost = cookiesPerClick * 100
-    if (cookies < cost) return
-    
-    setCookies(prev => prev - cost)
-    setCookiesPerClick(prev => prev + 1)
-  }
-  
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4 space-y-8">
-      <LanguageSwitcher onLanguageChange={setCurrentLanguage} />
-      <h1 className="text-3xl font-bold text-center">{t.title}</h1>
+      setCookies((prev) => prev + cookiesPerSecond / 10);
+    }, 100);
+    return () => clearInterval(interval);
+  }, [cookiesPerSecond]);
+
+  // クッキーをクリックしたときの処理
+  const handleCookieClick = () => {
+    setCookies((prev) => prev + 1);
+  };
+
+  // アップグレードを購入する処理
+  const buyUpgrade = (type: keyof typeof upgrades) => {
+    const upgrade = upgrades[type];
+    if (cookies >= upgrade.cost) {
+      setCookies((prev) => prev - upgrade.cost);
       
-      <div className="w-full max-w-4xl space-y-6">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="text-2xl font-bold">{t.cookies}: {Math.floor(cookies)}{t.piece}</div>
-          <div className="text-sm text-gray-400">{t.perSecond} {cookiesPerSecond.toFixed(1)} {t.piece}</div>
-          
-          <div className="relative cursor-pointer" onClick={handleCookieClick}>
-            <div className="w-40 h-40 bg-yellow-800 rounded-full flex items-center justify-center hover:scale-105 transition-transform">
-              <div className="w-36 h-36 bg-yellow-600 rounded-full flex items-center justify-center">
-                <div className="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-4xl">
-                  🍪
-                </div>
-              </div>
-            </div>
-            
-            {clickEffect.show && (
-              <div 
-                className="absolute text-white font-bold animate-float-up pointer-events-none"
-                style={{ left: clickEffect.x, top: clickEffect.y }}
-              >
-                +{clickEffect.value}
-              </div>
-            )}
-          </div>
+      const newCps = cookiesPerSecond + upgrade.cps;
+      setCookiesPerSecond(newCps);
+
+      setUpgrades((prev) => ({
+        ...prev,
+        [type]: {
+          ...upgrade,
+          count: upgrade.count + 1,
+          cost: Math.floor(upgrade.cost * 1.15),
+        },
+      }));
+    }
+  };
+
+  // 数字をK, M, B形式にフォーマットする関数
+  const formatNumber = (num: number) => {
+    const roundedNum = Math.floor(num);
+    if (roundedNum < 1000) return roundedNum.toString();
+    if (roundedNum < 1000000) return (num / 1000).toFixed(1) + "K";
+    if (roundedNum < 1000000000) return (num / 1000000).toFixed(1) + "M";
+    return (num / 1000000000).toFixed(1) + "B";
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 relative overflow-hidden">
+      {/* 背景の装飾 */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-10 left-10 w-8 h-8 bg-yellow-300 rounded-full"></div>
+        <div className="absolute top-32 right-20 w-6 h-6 bg-pink-300 rounded-full"></div>
+        <div className="absolute bottom-40 left-16 w-10 h-10 bg-blue-300 rounded-full"></div>
+        <div className="absolute top-64 left-1/3 w-4 h-4 bg-green-300 rounded-full"></div>
+        <div className="absolute bottom-20 right-10 w-12 h-12 bg-purple-300 rounded-full"></div>
+        <div className="absolute top-20 right-1/3 w-5 h-5 bg-orange-300 rounded-full"></div>
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6 space-y-8">
+        {/* 言語切り替え */}
+        <div className="absolute top-4 right-4">
+            <LanguageSwitcher onLanguageChange={setCurrentLanguage} />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="border border-[#333] rounded-md p-4">
-            <h2 className="text-xl font-bold mb-4">{t.upgrades}</h2>
-            <div className="space-y-2">
-              {upgrades.map(upgrade => (
-                <div key={upgrade.id} className="flex justify-between items-center">
-                  <div>
-                    <div className="font-bold">{upgrade.name} ({upgrade.count})</div>
-                    <div className="text-sm text-gray-400">{upgrade.description}</div>
-                    <div className="text-xs">{t.perSecond} {upgrade.cookiesPerSecond} {t.piece}</div>
-                  </div>
-                  <button
-                    className={`px-3 py-1 rounded-md ${cookies >= upgrade.currentCost ? 'bg-yellow-600 hover:bg-yellow-500' : 'bg-gray-600 cursor-not-allowed'}`}
-                    onClick={() => buyUpgrade(upgrade.id)}
-                    disabled={cookies < upgrade.currentCost}
-                  >
-                    {currentLanguage === 'ja' ? `${Math.floor(upgrade.currentCost)}${t.pieces}` : `${t.buyFor} ${Math.floor(upgrade.currentCost)} ${t.pieces}`}
-                  </button>
-                </div>
-              ))}
-              
-              <div className="mt-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <div className="font-bold">{t.clickPower} ({cookiesPerClick})</div>
-                    <div className="text-sm text-gray-400">{t.clickPowerDescription}</div>
-                  </div>
-                  <button
-                    className={`px-3 py-1 rounded-md ${cookies >= cookiesPerClick * 100 ? 'bg-yellow-600 hover:bg-yellow-500' : 'bg-gray-600 cursor-not-allowed'}`}
-                    onClick={buyClickUpgrade}
-                    disabled={cookies < cookiesPerClick * 100}
-                  >
-                    {currentLanguage === 'ja' ? `${cookiesPerClick * 100}${t.pieces}` : `${t.buyFor} ${cookiesPerClick * 100} ${t.pieces}`}
-                  </button>
-                </div>
+        {/* タイトル */}
+        <h1
+          className="text-4xl font-bold text-center text-purple-800 drop-shadow-lg"
+          style={{ fontFamily: "Comic Sans MS, cursive" }}
+        >
+          🍪 {t('title')} 🍪
+        </h1>
+
+        <div className="flex flex-col items-center space-y-6">
+          {/* クッキー本体 */}
+          <button
+            onClick={handleCookieClick}
+            className="relative group transition-transform duration-150 hover:scale-105 active:scale-95"
+          >
+            <div className="w-64 h-64 bg-gradient-to-br from-amber-200 to-amber-400 rounded-full border-8 border-amber-600 shadow-2xl flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-4 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full">
+                {/* チョコチップ */}
+                <div className="absolute top-8 left-12 w-6 h-6 bg-amber-800 rounded-full"></div>
+                <div className="absolute top-16 right-8 w-4 h-4 bg-amber-900 rounded-full"></div>
+                <div className="absolute bottom-12 left-8 w-5 h-5 bg-amber-800 rounded-full"></div>
+                <div className="absolute bottom-8 right-12 w-6 h-6 bg-amber-900 rounded-full"></div>
+                <div className="absolute top-20 left-1/2 w-4 h-4 bg-amber-800 rounded-full"></div>
+                <div className="absolute bottom-16 right-1/3 w-3 h-3 bg-amber-900 rounded-full"></div>
+              </div>
+              {/* ホバー時のエフェクト */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute top-4 right-4 text-yellow-300 text-2xl animate-pulse">✨</div>
+                <div className="absolute bottom-4 left-4 text-yellow-300 text-xl animate-pulse delay-150">⭐</div>
+                <div className="absolute top-1/2 left-2 text-yellow-300 text-lg animate-pulse delay-300">💫</div>
               </div>
             </div>
+          </button>
+
+          {/* カウンター */}
+          <div className="text-center space-y-2">
+            <div
+              className="text-3xl font-bold text-purple-800 drop-shadow-md"
+              style={{ fontFamily: "Comic Sans MS, cursive" }}
+            >
+              🍪 {formatNumber(cookies)} {t('cookies')}
+            </div>
+            <div className="text-xl text-purple-600 drop-shadow-sm" style={{ fontFamily: "Comic Sans MS, cursive" }}>
+              {formatNumber(cookiesPerSecond)} {t('cookiesPerSecond')}
+            </div>
           </div>
-          
-          <div>
-            <User />
-            <FarcasterActions />
-            <WalletActions 
-              cookies={cookies} 
-              onLoadSavedScore={(score) => {
-                if (!savedScoreLoaded && score > cookies) {
-                  setCookies(score);
-                  setSavedScoreLoaded(true);
-                }
-              }} 
-            />
-          </div>
+        </div>
+
+        {/* アップグレード */}
+        <div className="flex flex-wrap justify-center gap-4 max-w-2xl">
+          {Object.keys(upgrades).map((key) => {
+            const upgradeKey = key as keyof typeof upgrades;
+            const upgrade = upgrades[upgradeKey];
+            return (
+              <Button
+                key={upgrade.id}
+                onClick={() => buyUpgrade(upgradeKey)}
+                disabled={cookies < upgrade.cost}
+                className="bg-gradient-to-br from-pink-300 to-pink-500 hover:from-pink-400 hover:to-pink-600 text-purple-800 font-bold py-4 px-6 rounded-3xl border-4 border-pink-600 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+                style={{ fontFamily: "Comic Sans MS, cursive" }}
+              >
+                <div className="text-center">
+                  <div className="text-2xl mb-1">{key === 'cursor' ? '👆' : key === 'grandma' ? '👵' : '🚜'}</div>
+                  <div className="text-sm">{t(upgrade.id)}</div>
+                  <div className="text-xs">{t('cost')}: {formatNumber(upgrade.cost)}</div>
+                  <div className="text-xs">{t('owned')}: {upgrade.count}</div>
+                </div>
+              </Button>
+            );
+          })}
         </div>
       </div>
     </div>
-  )
+  );
 }

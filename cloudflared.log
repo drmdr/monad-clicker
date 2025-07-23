@@ -126,3 +126,41 @@
 {"level":"error","event":1,"connIndex":0,"originService":"http://localhost:3000","ingressRule":0,"error":"Incoming request ended abruptly: context canceled","time":"2025-07-22T16:37:58Z"}
 {"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"Incoming request ended abruptly: context canceled","type":"http","dest":"https://managing-pleasure-minimize-upon.trycloudflare.com/","time":"2025-07-22T16:37:58Z","message":"Request failed"}
 {"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T16:41:34Z","message":"Failed to refresh DNS local resolver"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T16:46:39Z","message":"Failed to refresh DNS local resolver"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T16:51:44Z","message":"Failed to refresh DNS local resolver"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-22T23:53:06Z","message":"Failed to refresh DNS local resolver"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-22T23:53:06Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-22T23:53:06Z","message":"Retrying connection in up to 1s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-22T23:53:07Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:23:33Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:23:36Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:23:36Z","message":"Retrying connection in up to 4s"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-23T00:23:38Z","message":"Failed to refresh DNS local resolver"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:23:39Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:24:16Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:24:16Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:24:16Z","message":"Retrying connection in up to 8s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:24:22Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:24:52Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:24:52Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:24:52Z","message":"Retrying connection in up to 16s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:25:04Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:25:25Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:25:25Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:25:25Z","message":"Retrying connection in up to 32s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:25:41Z","message":"Connection terminated"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-23T00:28:43Z","message":"Failed to refresh DNS local resolver"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:29:43Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:29:43Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:29:43Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:30:03Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:30:21Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:30:21Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:30:21Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:30:43Z","message":"Connection terminated"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:33:05Z","message":"Tunnel connection curve preferences: [X25519MLKEM768 CurveP256]"}
+{"level":"error","event":0,"ip":"198.41.192.227","connIndex":0,"error":"context canceled","time":"2025-07-23T00:33:05Z","message":"Failed to serve tunnel connection"}
+{"level":"info","event":0,"ip":"198.41.192.227","connIndex":0,"time":"2025-07-23T00:33:05Z","message":"Retrying connection in up to 1m4s"}
+{"level":"error","error":"context canceled","connIndex":0,"time":"2025-07-23T00:33:19Z","message":"Connection terminated"}
+{"level":"error","error":"lookup region1.v2.argotunnel.com: i/o timeout","time":"2025-07-23T00:33:48Z","message":"Failed to refresh DNS local resolver"}
+{"level":"info","time":"2025-07-23T00:34:50Z","message":"Initiating graceful shutdown due to signal terminated ..."}
