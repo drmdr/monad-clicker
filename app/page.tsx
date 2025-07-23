@@ -1,49 +1,28 @@
-import App from '@/components/pages/app'
-import { APP_URL } from '@/lib/constants'
-import type { Metadata } from 'next'
-
-const miniappEmbed = {
-  version: '1',
-  imageUrl: `${APP_URL}/images/feed.png`,
-  button: {
-    title: 'クッキーを焼く',
-    action: {
-      type: 'launch_frame',
-      name: 'Monad クッキークリッカー',
-      url: APP_URL,
-      splashImageUrl: `${APP_URL}/images/splash.png`,
-      splashBackgroundColor: '#2d1606',
-    },
-  },
-}
+import { Demo } from '@/components/Home';
+import { APP_URL } from '@/lib/constants';
+import type { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const imageUrl = `${APP_URL}/opengraph-image.png`;
+
   return {
-    title: 'Monad クッキークリッカー',
+    title: 'Monad Cookie Clicker',
+    description: 'A simple cookie clicker game on the Monad Testnet.',
     openGraph: {
-      title: 'Monad クッキークリッカー',
-      description: 'Monad Testnet上で楽しむ、世界一シンプルなクッキークリッカーゲームです。',
-      images: [
-        {
-          url: `${APP_URL}/images/feed.png`,
-        },
-      ],
-    },
-    twitter: {
-      images: [
-        {
-          url: `${APP_URL}/images/feed.png`,
-        },
-      ],
+      title: 'Monad Cookie Clicker',
+      description: 'A simple cookie clicker game on the Monad Testnet.',
+      images: [imageUrl],
     },
     other: {
-      'fc:miniapp': JSON.stringify(miniappEmbed),
-      // fc:frame for backward compatibility
-      'fc:frame': JSON.stringify(miniappEmbed),
+      'fc:frame': 'vNext',
+      'fc:frame:image': imageUrl,
+      'fc:frame:button:1': 'Start Clicking!',
+      'fc:frame:button:1:action': 'link',
+      'fc:frame:button:1:target': APP_URL,
     },
-  }
+  };
 }
 
-export default function Home() {
-  return <App />
+export default function Page() {
+  return <Demo />;
 }
