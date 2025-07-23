@@ -81,7 +81,7 @@ export function Demo() {
         {/* タイトル */}
         <h1
           className="text-4xl font-bold text-center text-purple-800 drop-shadow-lg"
-          style={{ fontFamily: "Comic Sans MS, cursive" }}
+          
         >
           🍪 {t('title')} 🍪
         </h1>
@@ -115,11 +115,11 @@ export function Demo() {
           <div className="text-center space-y-2">
             <div
               className="text-3xl font-bold text-purple-800 drop-shadow-md"
-              style={{ fontFamily: "Comic Sans MS, cursive" }}
+              
             >
               🍪 {formatNumber(cookies)} {t('cookies')}
             </div>
-            <div className="text-xl text-purple-600 drop-shadow-sm" style={{ fontFamily: "Comic Sans MS, cursive" }}>
+            <div className="text-xl text-purple-600 drop-shadow-sm" >
               {formatNumber(cookiesPerSecond)} {t('cookiesPerSecond')}
             </div>
           </div>
@@ -136,7 +136,7 @@ export function Demo() {
                 onClick={() => buyUpgrade(upgradeKey)}
                 disabled={cookies < upgrade.cost}
                 className="bg-gradient-to-br from-pink-300 to-pink-500 hover:from-pink-400 hover:to-pink-600 text-purple-800 font-bold py-4 px-6 rounded-3xl border-4 border-pink-600 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
-                style={{ fontFamily: "Comic Sans MS, cursive" }}
+                
               >
                 <div className="text-center">
                   <div className="text-2xl mb-1">{key === 'cursor' ? '👆' : key === 'grandma' ? '👵' : '🚜'}</div>
