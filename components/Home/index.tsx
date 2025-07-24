@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getTranslation, TranslationKey } from "@/lib/translations";
 import { LanguageSwitcher, type Language } from "@/components/LanguageSwitcher";
@@ -9,6 +10,7 @@ export function Demo() {
   const [cookies, setCookies] = useState(0);
   const [cookiesPerSecond, setCookiesPerSecond] = useState(0);
   const [currentLanguage, setCurrentLanguage] = useState<Language>("en"); // 初期言語を英語に修正
+  const [isTapped, setIsTapped] = useState(false);
 
   const [upgrades, setUpgrades] = useState({
     cursor: { id: 'Auto Clicker' as TranslationKey, count: 0, cost: 15, cps: 0.1 },
@@ -29,6 +31,8 @@ export function Demo() {
   // クッキーをクリックしたときの処理
   const handleCookieClick = () => {
     setCookies((prev) => prev + 1);
+    setIsTapped(true);
+    setTimeout(() => setIsTapped(false), 150); // アニメーション時間
   };
 
   // アップグレードを購入する処理
@@ -90,25 +94,16 @@ export function Demo() {
           {/* クッキー本体 */}
           <button
             onClick={handleCookieClick}
-            className="relative group transition-transform duration-150 hover:scale-105 active:scale-95"
+            className="relative group transition-transform duration-150 hover:scale-105 active:scale-95 focus:outline-none"
           >
-            <div className="w-64 h-64 bg-gradient-to-br from-amber-200 to-amber-400 rounded-full border-8 border-amber-600 shadow-2xl flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-4 bg-gradient-to-br from-amber-300 to-amber-500 rounded-full">
-                {/* チョコチップ */}
-                <div className="absolute top-8 left-12 w-6 h-6 bg-amber-800 rounded-full"></div>
-                <div className="absolute top-16 right-8 w-4 h-4 bg-amber-900 rounded-full"></div>
-                <div className="absolute bottom-12 left-8 w-5 h-5 bg-amber-800 rounded-full"></div>
-                <div className="absolute bottom-8 right-12 w-6 h-6 bg-amber-900 rounded-full"></div>
-                <div className="absolute top-20 left-1/2 w-4 h-4 bg-amber-800 rounded-full"></div>
-                <div className="absolute bottom-16 right-1/3 w-3 h-3 bg-amber-900 rounded-full"></div>
-              </div>
-              {/* ホバー時のエフェクト */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute top-4 right-4 text-yellow-300 text-2xl animate-pulse">✨</div>
-                <div className="absolute bottom-4 left-4 text-yellow-300 text-xl animate-pulse delay-150">⭐</div>
-                <div className="absolute top-1/2 left-2 text-yellow-300 text-lg animate-pulse delay-300">💫</div>
-              </div>
-            </div>
+            <Image
+              src={isTapped ? "/images/cookie02.png" : "/images/cookie01.png"}
+              width={256}
+              height={256}
+              alt="Cookie"
+              priority
+              className="w-64 h-64"
+            />
           </button>
 
           {/* カウンター */}
