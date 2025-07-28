@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { getTranslation, TranslationKey } from "@/lib/translations";
+import { WalletActions } from "./WalletActions";
 import { LanguageSwitcher, type Language } from "@/components/LanguageSwitcher";
 
 export function Demo() {
@@ -118,28 +119,41 @@ export function Demo() {
               {formatNumber(cookiesPerSecond)} {t('cookiesPerSecond')}
             </div>
           </div>
+
+          {/* ウォレット連携 */}
+          <div className="w-full max-w-sm p-4 bg-white/30 rounded-2xl shadow-lg backdrop-blur-sm border border-white/50">
+             <WalletActions cookies={cookies} onLoadSavedScore={setCookies} />
+          </div>
         </div>
 
         {/* アップグレード */}
-        <div className="flex flex-wrap justify-center gap-4 max-w-2xl">
+        <div className="w-full max-w-md grid grid-cols-2 gap-4">
           {Object.keys(upgrades).map((key) => {
             const upgradeKey = key as keyof typeof upgrades;
             const upgrade = upgrades[upgradeKey];
+            const canAfford = cookies >= upgrade.cost;
             return (
-              <Button
-                key={upgrade.id}
+              <button
+                key={upgradeKey}
                 onClick={() => buyUpgrade(upgradeKey)}
-                disabled={cookies < upgrade.cost}
-                className="bg-gradient-to-br from-pink-300 to-pink-500 hover:from-pink-400 hover:to-pink-600 text-purple-800 font-bold py-4 px-6 rounded-3xl border-4 border-pink-600 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
-                
+                disabled={!canAfford}
+                className={`relative w-full p-4 rounded-2xl shadow-md transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center text-center h-40 ${
+                  canAfford ? 'bg-pink-400 text-white' : 'bg-gray-200'
+                }`}
               >
-                <div className="text-center">
-                  <div className="text-2xl mb-1">{key === 'cursor' ? '👆' : key === 'grandma' ? '👵' : '🚜'}</div>
-                  <div className="text-sm">{t(upgrade.id)}</div>
-                  <div className="text-xs">{t('cost')}: {formatNumber(upgrade.cost)}</div>
-                  <div className="text-xs">{t('owned')}: {upgrade.count}</div>
+                <span className="text-4xl mb-2">
+                  {upgradeKey === 'cursor' ? '👆' : upgradeKey === 'grandma' ? '👵' : '🚜'}
+                </span>
+                <div>
+                  <span className="block font-bold text-lg">{t(upgrade.id)}</span>
+                  <span className="block text-xs">
+                    {t('cost')}: {formatNumber(upgrade.cost)}
+                  </span>
+                  <span className="block text-xs">
+                    {t('owned')}: {upgrade.count}
+                  </span>
                 </div>
-              </Button>
+              </button>
             );
           })}
         </div>

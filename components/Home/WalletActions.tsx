@@ -1,4 +1,5 @@
-import { useFrame } from '@/components/farcaster-provider'
+import { useFrame } from '@/components/farcaster-provider';
+import { Button } from '@/components/ui/button';
 import { farcasterMiniApp as miniAppConnector } from '@farcaster/miniapp-wagmi-connector'
 import { parseEther, encodeFunctionData } from 'viem'
 import { monadTestnet } from 'viem/chains'
@@ -121,84 +122,52 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
 
   if (isConnected) {
     return (
-      <div className="space-y-4 border border-[#333] rounded-md p-4 mt-4">
-        <h2 className="text-xl font-bold text-left">Monad Testnet連携</h2>
-        <div className="flex flex-col space-y-4 justify-start">
-          <p className="text-sm text-left">
-            ウォレット接続済み:{' '}
-            <span className="bg-white font-mono text-black rounded-md p-[4px] text-xs">
-              {address?.substring(0, 6)}...{address?.substring(address.length - 4)}
-            </span>
-          </p>
-          
-          {chainId !== monadTestnet.id ? (
-            <button
-              type="button"
-              className="bg-yellow-600 hover:bg-yellow-500 text-white rounded-md p-2 text-sm"
-              onClick={() => switchChain({ chainId: monadTestnet.id })}
-            >
-              Monad Testnetに切り替える
-            </button>
-          ) : (
-            <div className="flex flex-col space-y-4">
-              {savedScore !== null && (
-                <p className="text-sm">
-                  保存済みスコア: <span className="font-bold">{savedScore}</span> クッキー
-                </p>
-              )}
-              
-              <div className="flex flex-row space-x-2">
-                <button
-                  type="button"
-                  className="bg-yellow-600 hover:bg-yellow-500 text-white rounded-md p-2 text-sm flex-1"
-                  onClick={saveScore}
-                  disabled={isSaving || cookies <= 0}
-                >
-                  {isSaving ? '保存中...' : 'スコアを保存'}
-                </button>
-                
-                <button
-                  type="button"
-                  className="bg-gray-600 hover:bg-gray-500 text-white rounded-md p-2 text-sm"
-                  onClick={() => refetchScore()}
-                >
-                  更新
-                </button>
-              </div>
-              
-              {saveSuccess && (
-                <div className="text-green-500 text-sm">
-                  スコアが正常に保存されました！
-                </div>
-              )}
-              
-              {saveHash && (
-                <button
-                  type="button"
-                  className="bg-blue-600 hover:bg-blue-500 text-white rounded-md p-2 text-sm"
-                  onClick={() =>
-                    window.open(
-                      `https://testnet.monadexplorer.com/tx/${saveHash}`,
-                      '_blank',
-                    )
-                  }
-                >
-                  トランザクション確認
-                </button>
-              )}
-            </div>
-          )}
+      <div className="w-full text-center space-y-3">
+        <p className="text-xs text-gray-600">
+          <span className="font-bold">Monad Testnet</span>に接続中:
+          <span className="ml-2 font-mono bg-gray-200 rounded-md px-2 py-1 text-xs">
+            {address?.substring(0, 6)}...{address?.substring(address.length - 4)}
+          </span>
+        </p>
 
-          <button
-            type="button"
-            className="bg-gray-600 hover:bg-gray-500 text-white rounded-md p-2 text-sm"
-            onClick={() => disconnect()}
-          >
-            ウォレット接続解除
-          </button>
-        </div>
+        {chainId !== monadTestnet.id ? (
+          <Button onClick={() => switchChain({ chainId: monadTestnet.id })} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white">
+            Monad Testnetに切り替える
+          </Button>
+        ) : (
+          <div className="space-y-3">
+            <Button onClick={saveScore} disabled={isSaving || cookies <= 0} className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+              {isSaving ? '保存中...' : `現在のスコア (${Math.floor(cookies)}) を保存`}
+            </Button>
+
+            <Button onClick={() => refetchScore()} variant="outline" className="w-full">
+              {savedScore !== null ? `保存したスコア (${savedScore}) を読み込む` : '保存したスコアを読み込む'}
+            </Button>
+
+            {saveSuccess && (
+                <p className="text-green-600 font-bold text-sm animate-pulse">
+                  ✅ スコアが正常に保存されました！
+                </p>
+            )}
+
+            {saveHash && (
+              <a
+                href={`https://testnet.monadexplorer.com/tx/${saveHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline text-sm mt-2 inline-block"
+              >
+                最新のトランザクションを確認
+              </a>
+            )}
+          </div>
+        )}
+
+        <Button onClick={() => disconnect()} variant="ghost" size="sm" className="text-xs text-gray-500">
+          切断する
+        </Button>
       </div>
-    )
+    );
   }
 
   if (isEthProviderAvailable) {
