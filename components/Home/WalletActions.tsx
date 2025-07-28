@@ -14,7 +14,7 @@ import {
 } from 'wagmi'
 import { useState, useEffect } from 'react'
 
-// クッキークリッカーのスマートコントラクトABI（簡易版）
+// Cookie Clicker Smart Contract ABI (simplified version)
 const cookieClickerABI = [
   {
     inputs: [{ name: 'player', type: 'address' }],
@@ -48,10 +48,10 @@ const cookieClickerABI = [
   },
 ]
 
-// スマートコントラクトのアドレス（実際のデプロイ時に置き換える）
+// Smart contract address
 const CONTRACT_ADDRESS = '0x7f748f154B6D180D35fA12460C7E4C631e28A9d7'
 
-// 親コンポーネントから受け取るプロップスの型定義
+// Props interface definition
 interface WalletActionsProps {
   cookies?: number
   onLoadSavedScore?: (score: number) => void
@@ -67,10 +67,10 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
   const [isSaving, setIsSaving] = useState(false)
   const [saveSuccess, setSaveSuccess] = useState(false)
   
-  // スコアを保存するコントラクト関数
+  // Contract function to save score
   const { writeContract, isPending, isSuccess, data: saveHash } = useWriteContract()
   
-  // 保存されたスコアを読み込むコントラクト関数
+  // Contract function to load saved score
   const { data: savedScoreData, refetch: refetchScore } = useReadContract({
     address: CONTRACT_ADDRESS as `0x${string}`,
     abi: cookieClickerABI,
@@ -81,7 +81,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
     }
   })
   
-  // スコアが読み込まれたら親コンポーネントに通知
+  // Notify parent component when score is loaded
   useEffect(() => {
     if (savedScoreData && onLoadSavedScore) {
       const score = Number(savedScoreData)
@@ -90,7 +90,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
     }
   }, [savedScoreData, onLoadSavedScore])
   
-  // スコアを保存する関数
+  // Function to save score
   const saveScore = () => {
     if (!isConnected || chainId !== monadTestnet.id || !address) return
     
@@ -105,17 +105,17 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
         args: [BigInt(Math.floor(cookies))],
       })
     } catch (error) {
-      console.error('スコア保存エラー:', error)
+      console.error('Score save error:', error)
       setIsSaving(false)
     }
   }
   
-  // 保存成功時の処理
+  // Handle successful save
   useEffect(() => {
     if (isSuccess) {
       setIsSaving(false)
       setSaveSuccess(true)
-      // 3秒後に成功メッセージを非表示
+      // Hide success message after 3 seconds
       setTimeout(() => setSaveSuccess(false), 3000)
     }
   }, [isSuccess])
@@ -124,7 +124,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
     return (
       <div className="w-full text-center space-y-3">
         <p className="text-xs text-gray-600">
-          <span className="font-bold">Monad Testnet</span>に接続中:
+          <span className="font-bold">Monad Testnet</span> connected:
           <span className="ml-2 font-mono bg-gray-200 rounded-md px-2 py-1 text-xs">
             {address?.substring(0, 6)}...{address?.substring(address.length - 4)}
           </span>
@@ -132,21 +132,21 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
 
         {chainId !== monadTestnet.id ? (
           <Button onClick={() => switchChain({ chainId: monadTestnet.id })} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white">
-            Monad Testnetに切り替える
+            Switch to Monad Testnet
           </Button>
         ) : (
           <div className="space-y-3">
             <Button onClick={saveScore} disabled={isSaving || cookies <= 0} className="w-full bg-pink-500 hover:bg-pink-600 text-white">
-              {isSaving ? '保存中...' : `現在のスコア (${Math.floor(cookies)}) を保存`}
+              {isSaving ? 'Saving...' : `Save Current Score (${Math.floor(cookies)})`}
             </Button>
 
             <Button onClick={() => refetchScore()} variant="outline" className="w-full">
-              {savedScore !== null ? `保存したスコア (${savedScore}) を読み込む` : '保存したスコアを読み込む'}
+              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'Load Saved Score'}
             </Button>
 
             {saveSuccess && (
                 <p className="text-green-600 font-bold text-sm animate-pulse">
-                  ✅ スコアが正常に保存されました！
+                  ✅ Score saved successfully!
                 </p>
             )}
 
@@ -157,14 +157,14 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline text-sm mt-2 inline-block"
               >
-                最新のトランザクションを確認
+                View Latest Transaction
               </a>
             )}
           </div>
         )}
 
         <Button onClick={() => disconnect()} variant="ghost" size="sm" className="text-xs text-gray-500">
-          切断する
+          Disconnect
         </Button>
       </div>
     );
@@ -173,15 +173,15 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
   if (isEthProviderAvailable) {
     return (
       <div className="space-y-4 border border-[#333] rounded-md p-4 mt-4">
-        <h2 className="text-xl font-bold text-left">Monad Testnet連携</h2>
+        <h2 className="text-xl font-bold text-left">Monad Testnet Connection</h2>
         <div className="flex flex-col space-y-2">
-          <p className="text-sm">ウォレットを接続してスコアを保存・読み込みできます</p>
+          <p className="text-sm">Connect wallet to save and load your score</p>
           <button
             type="button"
             className="bg-yellow-600 hover:bg-yellow-500 text-white w-full rounded-md p-2 text-sm"
             onClick={() => connect({ connector: miniAppConnector() })}
           >
-            ウォレットを接続
+            Connect Wallet
           </button>
         </div>
       </div>
@@ -192,7 +192,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
     <div className="space-y-4 border border-[#333] rounded-md p-4 mt-4">
       <h2 className="text-xl font-bold text-left">Monad Testnet連携</h2>
       <div className="flex flex-row space-x-4 justify-start items-start">
-        <p className="text-sm text-left">Warpcast経由でのみウォレット接続可能です</p>
+        <p className="text-sm text-left">Wallet connection available only via Warpcast</p>
       </div>
     </div>
   )

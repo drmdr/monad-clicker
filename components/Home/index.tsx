@@ -67,8 +67,8 @@ export function Demo() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 relative overflow-hidden">
-      {/* 背景の装飾 */}
-      <div className="absolute inset-0 opacity-20">
+      {/* 背景の装飾 - z-index:-1で背面に配置 */}
+      <div className="absolute inset-0 opacity-20 z-[-1]">
         <div className="absolute top-10 left-10 w-8 h-8 bg-yellow-300 rounded-full"></div>
         <div className="absolute top-32 right-20 w-6 h-6 bg-pink-300 rounded-full"></div>
         <div className="absolute bottom-40 left-16 w-10 h-10 bg-blue-300 rounded-full"></div>

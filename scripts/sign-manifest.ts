@@ -18,15 +18,15 @@ async function signManifest() {
     // 秘密鍵からアカウントを作成
     const account = privateKeyToAccount(`0x${PRIVATE_KEY}`);
     
-    // マニフェストデータ
+    // Manifest data
     const manifestData = {
-      name: 'Monad クッキークリッカー',
-      description: 'Monad Testnetで動作するクッキークリッカーゲーム。クッキーを焼いて、アップグレードを購入しよう！',
+      name: 'Monad Cookie Clicker',
+      description: 'A simple cookie clicker game on the Monad Testnet. Click cookies and buy upgrades!',
       icon: `${APP_URL}/images/icon.png`,
       url: APP_URL,
       buttons: [
         {
-          title: 'クッキーを焼く',
+          title: 'Start Clicking!',
           action: 'post',
         },
       ],
