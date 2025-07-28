@@ -67,8 +67,8 @@ export function Demo() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 relative overflow-hidden">
-      {/* 背景の装飾 - z-index:-1で背面に配置 */}
-      <div className="absolute inset-0 opacity-20 z-[-1]">
+      {/* 背景の装飾 - 背景グラデーションの上、他の要素の下に配置 */}
+      <div className="absolute inset-0 opacity-20">
         <div className="absolute top-10 left-10 w-8 h-8 bg-yellow-300 rounded-full"></div>
         <div className="absolute top-32 right-20 w-6 h-6 bg-pink-300 rounded-full"></div>
         <div className="absolute bottom-40 left-16 w-10 h-10 bg-blue-300 rounded-full"></div>
@@ -77,7 +77,7 @@ export function Demo() {
         <div className="absolute top-20 right-1/3 w-5 h-5 bg-orange-300 rounded-full"></div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6 space-y-8">
+      <div className="relative z-[5] flex flex-col items-center justify-center min-h-screen p-6 space-y-8">
         {/* 言語切り替え */}
         <div className="absolute top-4 right-4">
             <LanguageSwitcher onLanguageChange={setCurrentLanguage} />

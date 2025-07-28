@@ -81,6 +81,13 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
     }
   })
   
+  // Automatically fetch score when wallet is connected and on the right chain
+  useEffect(() => {
+    if (isConnected && address && chainId === monadTestnet.id) {
+      refetchScore();
+    }
+  }, [isConnected, address, chainId, refetchScore])
+  
   // Notify parent component when score is loaded
   useEffect(() => {
     if (savedScoreData && onLoadSavedScore) {
@@ -140,8 +147,13 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
               {isSaving ? 'Saving...' : `Save Current Score (${Math.floor(cookies)})`}
             </Button>
 
-            <Button onClick={() => refetchScore()} variant="outline" className="w-full">
-              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'Load Saved Score'}
+            <Button 
+              onClick={() => refetchScore()} 
+              variant="outline" 
+              className="w-full"
+              disabled={savedScore === null}
+            >
+              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'No Saved Score Found'}
             </Button>
 
             {saveSuccess && (
