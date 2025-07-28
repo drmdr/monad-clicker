@@ -151,9 +151,8 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
               onClick={() => refetchScore()} 
               variant="outline" 
               className="w-full"
-              disabled={savedScore === null}
             >
-              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'No Saved Score Found'}
+              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'Check for Saved Score'}
             </Button>
 
             {saveSuccess && (

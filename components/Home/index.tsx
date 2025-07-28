@@ -83,10 +83,10 @@ export function Demo() {
             <LanguageSwitcher onLanguageChange={setCurrentLanguage} />
         </div>
         
-        {/* タイトル */}
+        {/* タイトル - 横幅最大化＆フォントサイズ調整で改行防止 */}
         <h1
-          className="text-4xl font-bold text-center text-purple-800 drop-shadow-lg"
-          
+          className="w-full font-bold text-center text-purple-800 drop-shadow-lg"
+          style={{ fontSize: 'clamp(1.75rem, 5vw, 2.25rem)' }}
         >
           {t('title')}
         </h1>
@@ -137,7 +137,7 @@ export function Demo() {
                 key={upgradeKey}
                 onClick={() => buyUpgrade(upgradeKey)}
                 disabled={!canAfford}
-                className={`relative w-full p-4 rounded-2xl shadow-md transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center text-center h-40 ${
+                className={`relative w-full p-4 rounded-2xl shadow-md transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center text-center h-40 z-[2] ${
                   canAfford ? 'bg-pink-400 text-white' : 'bg-gray-200'
                 }`}
               >
