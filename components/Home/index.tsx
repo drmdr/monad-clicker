@@ -87,7 +87,7 @@ export function Demo() {
           className="text-4xl font-bold text-center text-purple-800 drop-shadow-lg"
           
         >
-          🍪 {t('title')} 🍪
+          {t('title')}
         </h1>
 
         <div className="flex flex-col items-center space-y-6">
@@ -102,7 +102,7 @@ export function Demo() {
               height={256}
               alt="Cookie"
               priority
-              className="w-64 h-64"
+              className={`w-64 h-64 ${isTapped ? 'animate-vibrate' : ''}`}
             />
           </button>
 
