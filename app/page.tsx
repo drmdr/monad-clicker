@@ -3,7 +3,7 @@ import { APP_URL } from '@/lib/constants';
 import type { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const imageUrl = `${APP_URL}/images/feed.png`;
+  const imageUrl = `${APP_URL}/images/banner.png`;
 
   return {
     title: 'Monad Cookie Clicker',
@@ -17,8 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
       'fc:frame': 'vNext',
       'fc:frame:image': imageUrl,
       'fc:frame:button:1': 'Start Clicking!',
-      'fc:frame:button:1:action': 'post',
-      'fc:frame:post_url': APP_URL,
+      'fc:frame:button:1:action': 'link',
+      'fc:frame:button:1:target': APP_URL,
     },
   };
 }
