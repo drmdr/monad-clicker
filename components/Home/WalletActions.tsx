@@ -143,7 +143,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
           </Button>
         ) : (
           <div className="space-y-3">
-            <Button onClick={saveScore} disabled={isSaving || cookies <= 0} className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+            <Button onClick={saveScore} disabled={isSaving || cookies < 0} className="w-full bg-pink-500 hover:bg-pink-600 text-white">
               {isSaving ? 'Saving...' : `Save Current Score (${Math.floor(cookies)})`}
             </Button>
 

@@ -28,6 +28,19 @@ cp .env.example .env.local
 yarn run dev
 ```
 
+### Windows PowerShellでの注意事項
+
+Windows環境のPowerShellでは、Linuxシェルやmacのターミナルと異なり、`&&`によるコマンド連結が使用できません。コマンドを連続実行する場合は、`;`を使用するか、個別に実行してください。
+
+```powershell
+# 正しい例
+npm install; npm run dev
+
+# または個別に実行
+npm install
+npm run dev
+```
+
 ### View the App in Warpcast Embed tool
 
 Warpcast has a neat [Embed tool](https://warpcast.com/~/developers/mini-apps/embed) that you can use to inspect the Mini App before you publish it.

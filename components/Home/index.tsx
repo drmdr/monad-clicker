@@ -137,7 +137,7 @@ export function Demo() {
                 key={upgradeKey}
                 onClick={() => buyUpgrade(upgradeKey)}
                 disabled={!canAfford}
-                className={`relative w-full p-4 rounded-2xl shadow-md transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex flex-col items-center justify-center text-center h-40 z-[2] ${
+                className={`relative w-full p-4 rounded-2xl shadow-md transition-transform transform hover:scale-105 disabled:cursor-not-allowed flex flex-col items-center justify-center text-center h-40 z-[2] ${
                   canAfford ? 'bg-pink-400 text-white' : 'bg-gray-200'
                 }`}
               >

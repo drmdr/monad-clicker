@@ -55,6 +55,27 @@ Farcaster Mini App（Monad Testnet対応）のクッキークリッカーゲー�
   - `scripts/sign-manifest.ts`: マニフェスト署名スクリプト
   - `lib/constants.ts`: 公開URL等の定数
 
+## 環境設定
+
+- Next.js 14.2.6
+- TypeScript
+- Tailwind CSS
+- Monad Testnet
+- Farcaster Mini App
+
+### Windows PowerShellでの注意事項
+
+Windows環境のPowerShellでは、Linuxシェルやmacのターミナルと異なり、`&&`によるコマンド連結が使用できません。コマンドを連続実行する場合は、`;`を使用するか、個別に実行してください。
+
+```powershell
+# 正しい例
+npm install; npm run dev
+
+# または個別に実行
+npm install
+npm run dev
+```
+
 ## 残タスク
 
 1. **テスト**
