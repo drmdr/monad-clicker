@@ -10,7 +10,7 @@ import { LanguageSwitcher, type Language } from "@/components/LanguageSwitcher";
 export function Demo() {
   const [cookies, setCookies] = useState(0);
   const [cookiesPerSecond, setCookiesPerSecond] = useState(0);
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en"); // 初期言語を英語に修正
+  const [currentLanguage, setCurrentLanguage] = useState<Language>("en"); // 日本語から英語をデフォルトに変更
   const [isTapped, setIsTapped] = useState(false);
 
   const [upgrades, setUpgrades] = useState({
