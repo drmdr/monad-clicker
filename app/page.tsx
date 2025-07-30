@@ -3,7 +3,7 @@ import { APP_URL } from '@/lib/constants';
 import type { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const imageUrl = `${APP_URL}/images/banner.png`;
+    const imageUrl = `${APP_URL}/opengraph-image.png`;
 
   return {
     title: 'Monad Cookie Clicker',
