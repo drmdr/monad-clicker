@@ -71,7 +71,7 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
   const { writeContract, isPending, isSuccess, data: saveHash } = useWriteContract()
   
   // Contract function to load saved score
-  const { data: savedScoreData, refetch: refetchScore } = useReadContract({
+  const { data: savedScoreData, refetch: refetchScore, isFetching: isFetchingScore } = useReadContract({
     address: CONTRACT_ADDRESS as `0x${string}`,
     abi: cookieClickerABI,
     functionName: 'getScore',
@@ -151,8 +151,9 @@ export function WalletActions({ cookies = 0, onLoadSavedScore }: WalletActionsPr
               onClick={() => refetchScore()} 
               variant="outline" 
               className="w-full"
+              disabled={isFetchingScore}
             >
-              {savedScore !== null ? `Load Saved Score (${savedScore})` : 'Check for Saved Score'}
+              {isFetchingScore ? 'Checking...' : (savedScore !== null ? `Saved Score (${savedScore})` : 'Check for Saved Score')}
             </Button>
 
             {saveSuccess && (
