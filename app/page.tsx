@@ -30,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// Vercelのキャッシュをクリアするためのコメント
 export default function Page() {
   return <Demo />;
 }
