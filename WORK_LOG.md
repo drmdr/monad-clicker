@@ -80,4 +80,4 @@
 ### デプロイ
 
 *   上記すべての変更をGitHubリポジトリにプッシュし、Vercelの本番環境に自動でデプロイしました。
-*   **URL**: [https://monad-clicker-tffx.vercel.app](https://monad-clicker-tffx.vercel.app)
+*   **URL**: [https://monad-clicker.vercel.app](https://monad-clicker.vercel.app)

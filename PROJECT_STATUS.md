@@ -46,7 +46,7 @@ Farcaster Mini App∩╝êMonad Testnetσ»╛σ┐£∩╝ëπü«πé»πââ�
 
 - **ローカル開発**: `npm run dev`で実行し、`http://localhost:3000`で確認します。
 - **デプロイ**: 変更をGitHubにプッシュすると、自動的にVercelにデプロイされます。
-- **本番URL**: https://monad-clicker-tffx.vercel.app/
+- **本番URL**: https://monad-clicker.vercel.app/
 - **πâòπéíπéñπâ½µºïµêÉ**:
   - `components/Home/index.tsx`: πâíπéñπâ│πé▓πâ╝πâáπâ¡πé╕πââπé»
   - `components/Home/WalletActions.tsx`: πéªπé⌐πâ¼πââπâêΘÇúµÉ║µ⌐ƒΦâ╜
